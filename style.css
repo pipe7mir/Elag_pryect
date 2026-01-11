@@ -1,0 +1,33 @@
+/* Reset básico */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+body { background-color: #f4f7f6; color: #333; padding: 20px; }
+
+header { text-align: center; margin-bottom: 40px; }
+
+main {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Catálogo grande, resumen pequeño */
+    gap: 30px;
+}
+
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+#resumen-pedido {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: fit-content;
+}
+
+.info-entrega {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e3f2fd;
+    border-left: 5px solid #2196f3;
+}

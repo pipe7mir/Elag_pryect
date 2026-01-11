@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elag - Pedidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Elag</h1>
+        <p>Catálogo de Productos - Esperanza Laguna</p>
+    </header>
+
+    <main>
+        <section id="catalogo">
+            <h2>Nuestros Productos</h2>
+            <div id="contenedor-productos" class="grid-productos">
+                </div>
+        </section>
+
+        <aside id="resumen-pedido">
+            <h3>Resumen de Pedido</h3>
+            <div id="lista-pedido">
+                <p>No hay productos seleccionados.</p>
+            </div>
+            <div class="info-entrega">
+                <p><strong>Plazo de entrega:</strong> <span id="contador-entrega">Cargando...</span></p>
+                <small>* Mínimo 15 días hábiles (Lunes a Viernes)</small>
+            </div>
+            <button id="btn-finalizar" class="btn-primario">Confirmar Pedido</button>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
