@@ -16,7 +16,7 @@ public class PedidoController {
     public void recibirPedidoDesdeWeb(String jsonRecibido) {
         System.out.println("LOG: Sincronizando orden desde plataforma web de Elag...");
         
-        // Simulación de extracción de datos (Parsing).
+        // Simulación de extracción de datos (Parsing)
         int idGenerado = (int)(System.currentTimeMillis() % 1000);
         String cliente = "Cliente Web";
         String institucion = "Particular"; // Argumento corregido para cumplir con el constructor
@@ -24,11 +24,11 @@ public class PedidoController {
         
         // 1. Preparación de la lista de productos
         List<Uniforme> items = new ArrayList<>();
-        // Se añade producto base para asegurar integridad
+        // Se añade producto base para asegurar integridad del objeto Pedido
         items.add(new Uniforme(idGenerado, "Pedido Web Pendiente", "assets/web.jpg"));
 
-        // 2. CREACIÓN DEL PEDIDO (SOLUCIÓN: 5 parámetros)
-        // Se pasan: int, String, String, List, double
+        // 2. CREACIÓN DEL PEDIDO (SOLUCIÓN AL ERROR DE COMPILACIÓN)
+        // Se pasan exactamente los 5 parámetros: int, String, String, List, double
         Pedido pedidoWeb = new Pedido(idGenerado, cliente, institucion, items, total);
         
         // 3. PERSISTENCIA EN DISCO (NIO + UTF-8)

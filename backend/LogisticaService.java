@@ -16,7 +16,7 @@ public class LogisticaService {
     /**
      * Calcula la fecha de entrega sumando días hábiles a la fecha actual.
      * Este nombre de método es el que requiere Pedido.java para compilar.
-     * * @param diasAHabilitar Plazo de confección (ej: 15 días).
+     * @param diasAHabilitar Plazo de confección (ej: 15 días).
      * @return String con la fecha final formateada.
      */
     public String calcularFechaEntrega(int diasAHabilitar) {
@@ -28,7 +28,7 @@ public class LogisticaService {
         LocalDate fechaResultado = LocalDate.now();
         int diasContados = 0;
 
-        // Algoritmo de desplazamiento temporal
+        // Algoritmo de desplazamiento temporal: omite Sábados y Domingos
         while (diasContados < diasAHabilitar) {
             fechaResultado = fechaResultado.plusDays(1);
 
