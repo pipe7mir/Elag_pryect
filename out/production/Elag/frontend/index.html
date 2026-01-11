@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elag - Casa de Modas | Gestión de Confección</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header-main" ondblclick="ui.toggleAdmin()">
+        <div class="container">
+            <h1>Esperanza Laguna</h1>
+            <p class="subtitle">CASA DE MODAS</p>
+            <span class="tagline">Catálogo Profesional de Uniformes y Confección</span>
+        </div>
+    </header>
+
+    <main class="layout-principal">
+        <section id="catalogo" class="seccion-tienda">
+            <h2 class="titulo-seccion">Nuestros Uniformes</h2>
+            <div id="contenedor-productos" class="grid-productos">
+                <p class="loader">Cargando catálogo de alta costura...</p>
+            </div>
+        </section>
+
+        <aside id="resumen-pedido" class="sidebar-factura">
+            <h3>Tu Factura</h3>
+            
+            <div class="datos-cliente-seccion">
+                <div class="input-group">
+                    <label for="cliente-nombre">👤 Nombre del Cliente:</label>
+                    <input type="text" id="cliente-nombre" placeholder="Nombre responsable" required>
+                </div>
+                <div class="input-group">
+                    <label for="cliente-club">🛡️ Club o Institución:</label>
+                    <input type="text" id="cliente-club" placeholder="Ej: Club Deportivo, Clínica, etc.">
+                </div>
+            </div>
+
+            <hr class="divisor-resumen">
+
+            <div id="lista-pedido" class="scroll-carrito">
+                <p class="empty-msg">No hay productos seleccionados.</p>
+            </div>
+            
+            <div class="total-seccion">
+                <strong>TOTAL A PAGAR:</strong>
+                <span id="total-pedido">$0</span>
+            </div>
+
+            <div class="info-entrega">
+                <p>🚚 <strong>Entrega estimada:</strong></p>
+                <p id="contador-entrega" class="fecha-resaltada">Calculando...</p>
+                <small class="nota-logistica">* Mínimo 15 días hábiles de confección</small>
+            </div>
+
+            <div class="acciones-pedido">
+                <button id="btn-finalizar" class="btn-primario" onclick="ElagApp.cart.enviarWhatsApp()">
+                    Confirmar Pedido vía WhatsApp
+                </button>
+                <button onclick="ElagApp.cart.vaciar()" class="btn-limpiar">
+                    Vaciar Carrito
+                </button>
+            </div>
+        </aside>
+    </main>
+
+    <section id="admin-panel" class="admin-section" style="display: none;">
+        <div class="container-admin">
+            <header class="admin-header">
+                <h2>Panel de Control Elag</h2>
+                <p>Gestión de Inventario y Catálogo</p>
+            </header>
+
+            <form id="form-producto" class="form-profesional" onsubmit="adminManager.crearNuevoProducto(event)">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="admin-nombre">Nombre del Uniforme</label>
+                        <input type="text" id="admin-nombre" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="admin-imagen">Ruta de Imagen (assets/)</label>
+                        <input type="text" id="admin-imagen">
+                    </div>
+                </div>
+                
+                <fieldset id="admin-variantes" class="fieldset-variantes">
+                    <legend>Variantes de Talla y Precio</legend>
+                    <div id="contenedor-variantes-dinamicas">
+                        <div class="variante-input row">
+                            <input type="text" placeholder="Talla" class="v-etiqueta" required>
+                            <input type="number" placeholder="Precio" class="v-precio" required>
+                        </div>
+                    </div>
+                    <button type="button" onclick="ui.agregarFilaVariante()" class="btn-secundario">
+                        + Añadir Talla/Variante
+                    </button>
+                </fieldset>
+
+                <div class="admin-footer">
+                    <button type="submit" class="btn-guardar">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

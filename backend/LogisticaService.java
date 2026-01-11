@@ -1,46 +1,50 @@
-package backend; // Define que pertenece a tu carpeta backend
+package backend;
 
 import java.time.LocalDate;
 import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Servicio encargado de la lógica de entrega de la Casa de Modas Elag.
- * Calcula el plazo de confección respetando solo días laborales.
+ * Servicio de Ingeniería Logística - Casa de Modas Elag.
+ * Calcula plazos de confección omitiendo fines de semana (Sábados y Domingos).
  */
 public class LogisticaService {
 
-    // Plazo estándar definido por la Casa de Modas
-    private static final int PLAZO_CONFECCION_ESTANDAR = 15;
+    // Formato estándar de fecha para toda la aplicación Elag
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
-     * Calcula la fecha de entrega sumando 15 días hábiles a partir de hoy.
-     * @return LocalDate con la fecha final de entrega.
+     * Calcula la fecha de entrega sumando días hábiles a la fecha actual.
+     * Este nombre de método es el que requiere Pedido.java para compilar.
+     * * @param diasAHabilitar Plazo de confección (ej: 15 días).
+     * @return String con la fecha final formateada.
      */
-    public LocalDate obtenerFechaEntregaEstandar() {
-        return calcularFechaHabil(LocalDate.now(), PLAZO_CONFECCION_ESTANDAR);
-    }
+    public String calcularFechaEntrega(int diasAHabilitar) {
+        // Programación Defensiva: Asegurar que el plazo sea válido
+        if (diasAHabilitar < 0) {
+            diasAHabilitar = 0;
+        }
 
-    /**
-     * Algoritmo principal para saltar fines de semana.
-     */
-    private LocalDate calcularFechaHabil(LocalDate fechaInicio, int diasAHabilitar) {
-        LocalDate fechaResultado = fechaInicio;
+        LocalDate fechaResultado = LocalDate.now();
         int diasContados = 0;
 
+        // Algoritmo de desplazamiento temporal
         while (diasContados < diasAHabilitar) {
-            // Avanzamos un día a la vez
             fechaResultado = fechaResultado.plusDays(1);
-            
+
             // Verificamos si es un día laboral (Lunes a Viernes)
             if (esDiaLaboral(fechaResultado)) {
                 diasContados++;
             }
         }
-        return fechaResultado;
+
+        return fechaResultado.format(FORMATO_FECHA);
     }
 
     /**
-     * Verifica si una fecha cae en día de oficina.
+     * Determina si una fecha es día de oficina (Lunes-Viernes).
+     * @param fecha Objeto LocalDate a evaluar.
+     * @return true si es laborable, false si es fin de semana.
      */
     private boolean esDiaLaboral(LocalDate fecha) {
         DayOfWeek dia = fecha.getDayOfWeek();

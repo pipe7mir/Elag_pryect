@@ -1,57 +1,50 @@
 package backend;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
+/**
+ * Modelo de Datos Unificado v3.8.
+ * Resuelve conflictos de argumentos y automatiza la logística.
+ */
 public class Pedido {
-    private final int id;
-    private final String nombreCliente;
-    private final List<Uniforme> items;
-    private final double total;
-    private final LocalDate fechaEntrega;
+    private int id;
+    private String nombreCliente;
+    private String nombreClub;
+    private double total;
+    private String fechaEntrega;
+    private List<Uniforme> productos;
 
     /**
-     * Constructor optimizado.
-     * Implementa la lógica de negocio automáticamente al crearse la orden.
+     * Constructor de 5 parámetros.
+     * La fecha de entrega se calcula internamente, no se recibe por parámetro.
      */
-    public Pedido(int id, String nombreCliente, List<Uniforme> items, double total) {
+    public Pedido(int id, String nombreCliente, String nombreClub, List<Uniforme> productos, double total) {
         this.id = id;
         this.nombreCliente = nombreCliente;
-        // Optimizacion: Protegemos la lista para que no sea modificable fuera de esta clase
-        this.items = Collections.unmodifiableList(items);
+        // Lógica defensiva: Asigna "Particular" si el club viene vacío.
+        this.nombreClub = (nombreClub == null || nombreClub.isEmpty()) ? "Particular" : nombreClub;
+        this.productos = productos;
         this.total = total;
-        
-        // Logica de negocio: Fuente unica de verdad
+
+        // EJECUCIÓN LOGÍSTICA: Se conecta con LogisticaService para obtener la fecha real.
         LogisticaService logistica = new LogisticaService();
-        this.fechaEntrega = logistica.obtenerFechaEntregaEstandar();
+        this.fechaEntrega = logistica.calcularFechaEntrega(15);
     }
 
-    // --- GETTERS (Encapsulamiento profesional) ---
+    // Getters necesarios para el ArchivoService (NIO/UTF-8).
     public int getId() { return id; }
     public String getNombreCliente() { return nombreCliente; }
-    public List<Uniforme> getItems() { return items; }
+    public String getNombreClub() { return nombreClub; }
     public double getTotal() { return total; }
-    public LocalDate getFechaEntrega() { return fechaEntrega; }
+    public String getFechaEntrega() { return fechaEntrega; }
 
-    /**
-     * Genera un reporte formateado del pedido.
-     * Optimizado para lectura en consola de ingeniería.
-     */
     public void generarResumen() {
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
-        System.out.println("\n========================================");
-        System.out.println("       FACTURA CASA DE MODAS ELAG       ");
-        System.out.println("========================================");
-        System.out.println("ORDEN ID:    " + id);
-        System.out.println("CLIENTE:     " + nombreCliente);
-        System.out.println("PRODUCTOS:   " + items.size() + " uniformes");
-        System.out.println("TOTAL:       $" + String.format("%.2f", total));
-        System.out.println("----------------------------------------");
-        System.out.println("ENTREGA ESTIMADA: " + fechaEntrega.format(formatoFecha));
-        System.out.println("(*Plazo de 15 días hábiles cumplido*)");
-        System.out.println("========================================\n");
+        System.out.println("\n----------------------------------------");
+        System.out.println("📦 PEDIDO REGISTRADO: #" + id);
+        System.out.println("👤 CLIENTE: " + nombreCliente);
+        System.out.println("🛡️ ENTIDAD: " + nombreClub);
+        System.out.println("💰 TOTAL: $" + String.format("%.2f", total));
+        System.out.println("📅 ENTREGA ESTIMADA: " + fechaEntrega);
+        System.out.println("----------------------------------------\n");
     }
 }

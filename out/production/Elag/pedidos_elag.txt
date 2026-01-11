@@ -1,0 +1,3 @@
+ID: 4286 | Cliente: Esnaider Barragán | Total: $85000.0 | Entrega: 2026-01-30
+ID: 3650 | Cliente: Esnaider Barragán | Total: $85000.0 | Entrega: 2026-01-30
+[2026-01-11 06:22:04] ID: 4245 | Cliente: Esnaider BarragÃ¡n | Club/Inst: Esnaider BarragÃ¡n | Total: $85000,00 | Entrega: 2026-01-30
