@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elag - Pedidos</title>
+    <title>Elag - Casa de Modas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Elag</h1>
-        <p>Catálogo de Productos - Esperanza Laguna</p>
+        <h1>Esperanza Laguna</h1>
+        <h2>Casa de Modas</h2>
+        <p>Catálogo Profesional de Uniformes y Confección</p>
     </header>
 
     <main>
@@ -20,17 +21,67 @@
         </section>
 
         <aside id="resumen-pedido">
-            <h3>Resumen de Pedido</h3>
+            <h3>Tu Factura</h3>
             <div id="lista-pedido">
-                <p>No hay productos seleccionados.</p>
+                <p style="color: #999; text-align: center;">No hay productos seleccionados.</p>
             </div>
+            
+            <div class="total-seccion">
+                <strong>TOTAL A PAGAR:</strong>
+                <span id="total-pedido">$0</span>
+            </div>
+
             <div class="info-entrega">
-                <p><strong>Plazo de entrega:</strong> <span id="contador-entrega">Cargando...</span></p>
-                <small>* Mínimo 15 días hábiles (Lunes a Viernes)</small>
+                <p>🚚 <strong>Entrega estimada:</strong></p>
+                <p id="contador-entrega">Calculando fecha...</p>
+                <small>* Mínimo 15 días hábiles de confección</small>
             </div>
-            <button id="btn-finalizar" class="btn-primario">Confirmar Pedido</button>
+
+            <button id="btn-finalizar" class="btn-primario">
+                Confirmar Pedido vía WhatsApp
+            </button>
+
+            <button onclick="vaciarCarrito()" class="btn-limpiar">
+                Vaciar Carrito
+            </button>
         </aside>
     </main>
+
+    <hr>
+
+    <section id="admin-panel">
+        <h2>Panel de Administración (Gestión Elag)</h2>
+        <div class="admin-container">
+            <form id="form-producto">
+                <div class="input-group">
+                    <label>Nombre del Uniforme:</label>
+                    <input type="text" id="admin-nombre" placeholder="Ej: Uniforme Médico Anti-fluido" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Ruta de Imagen:</label>
+                    <input type="text" id="admin-imagen" placeholder="assets/nombre-imagen.jpg">
+                </div>
+                
+                <div id="admin-variantes">
+                    <h4>Variantes de Talla / Precio</h4>
+                    <div class="variante-input">
+                        <input type="text" placeholder="Talla (S, M, L...)" class="v-etiqueta">
+                        <input type="number" placeholder="Precio ($)" class="v-precio">
+                    </div>
+                </div>
+
+                <div class="admin-buttons">
+                    <button type="button" onclick="agregarCampoVariante()" class="btn-secundario">
+                        + Añadir Talla/Variante
+                    </button>
+                    <button type="submit" class="btn-guardar">
+                        Guardar en Catálogo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
